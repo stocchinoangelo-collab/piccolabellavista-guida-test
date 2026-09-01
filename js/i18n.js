@@ -99,9 +99,6 @@ const I18N = {
     contact: "Contatti",
     rules: "Regole della casa",
     services: "Servizi",
-    weather: "Meteo Cagliari",
-    whereWeAre: "Dove siamo",
-    openMap: "Apri in Google Maps →",
   },
   en: {
     gate_text: "Private guide for Piccolabellavista guests",
@@ -202,9 +199,6 @@ const I18N = {
     contact: "Contacts",
     rules: "House rules",
     services: "Services",
-    weather: "Weather Cagliari",
-    whereWeAre: "Where we are",
-    openMap: "Open in Google Maps →",
   },
   de: {
     gate_text: "Privater Reiseführer für Gäste von Piccolabellavista",
@@ -305,10 +299,10 @@ const I18N = {
     contact: "Kontakt",
     rules: "Hausregeln",
     services: "Services",
-    weather: "Wetter Cagliari",
-    whereWeAre: "Wo wir sind",
-    openMap: "In Google Maps öffnen →",
-  }
+    weather: { it: "Meteo Cagliari", en: "Weather Cagliari", de: "Wetter Cagliari" },
+  whereWeAre: { it: "Dove siamo", en: "Where we are", de: "Wo wir sind" },
+  openMap: { it: "Apri in Google Maps →", en: "Open in Google Maps →", de: "In Google Maps öffnen →" },
+}
 };
 
 let currentLang = localStorage.getItem('pbv-lang') || 'it';

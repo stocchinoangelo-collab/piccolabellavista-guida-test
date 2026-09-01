@@ -79,8 +79,8 @@ const DATA = {
     {
       id: "mariapiau",
       name: "Mari Pintau",
-      image: "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=800&q=80",
-      imageCredit: "Unsplash — immagine rappresentativa (non il sito reale)",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Cala_Mari_Pintau_-_panoramio.jpg",
+      imageCredit: "Ramon Espiña Fernandez — CC BY-SA 3.0 — Wikimedia Commons",
       distance: 18,
       time: 25,
       type: { it: "Spiaggia selvaggia", en: "Wild beach" },
@@ -97,8 +97,8 @@ const DATA = {
     {
       id: "solanas",
       name: "Solanas",
-      image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-      imageCredit: "[DA VERIFICARE] Unsplash — immagine rappresentativa (non il sito reale, in attesa di una foto reale di Angelo)",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Solanas_beach_in_Sardinia_-_Flickr_-_david.orban.jpg",
+      imageCredit: "David Orban — CC BY 2.0 — Wikimedia Commons",
       distance: 35,
       time: 40,
       type: { it: "Spiaggia naturale", en: "Natural beach" },
