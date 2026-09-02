@@ -1,96 +1,135 @@
-/* Piccolabellavista service worker — V3.2
-   Fix rispetto a v3.1:
-   - js/data.js (eventi, sagre, prezzi, Wi-Fi...) era servito cache-first
-     come css/js statici: un ospite che aveva già visitato la pagina non
-     vedeva contenuti aggiornati finché non si bumpava manualmente CACHE.
-     Ora data.js usa network-first con fallback su cache, come già avveniva
-     per il CSV di Google Docs.
-   - Versione cache bumpata (v31 -> v32): NECESSARIO farlo ad ogni release
-     che tocca gli ASSETS precaricati, altrimenti i client con la PWA già
-     installata continuano a vedere i file vecchi.
-*/
-const CACHE = "pbv-v32";
+/* ============================================================
+   Piccolabellavista — Service worker  ·  v4.0
+   ============================================================
+   Cambiamenti rispetto alla v3.2:
+
+   - "./" è tra gli asset precaricati e le navigazioni hanno un
+     fallback su index.html. Prima, offline, chi apriva l'indirizzo
+     senza "index.html" (cioè quasi tutti) non trovava nulla in
+     cache: la richiesta era per "/" ma in cache c'era "./index.html".
+   - Le foto della casa e le icone sono precaricate. Una PWA che
+     offline mostra "La casa" senza foto non serve a molto.
+   - Tolta la gestione di docs.google.com / googleusercontent.com:
+     nessuna riga del progetto contatta quei domini. Era codice di
+     una funzionalità mai completata.
+   - La versione della cache si ricava da VERSION: cambiare quella
+     stringa a ogni rilascio è l'unico passaggio manuale rimasto,
+     ed è documentato nel README.
+   ============================================================ */
+
+const VERSION = "4.0.0";
+const CACHE = `pbv-${VERSION}`;
+
 const ASSETS = [
+  "./",
   "./index.html",
   "css/style.css",
+  "js/config.js",
   "js/i18n.js",
   "js/data.js",
   "js/app.js",
   "manifest.webmanifest",
-  "icon.svg"
+  "icon.svg",
+  "img/casa/panoramica.jpg",
+  "img/casa/letto.jpg",
+  "img/casa/bagno.jpg",
+  "img/casa/zona-pranzo.jpg",
+  "img/icons/icon-192.png",
+  "img/icons/icon-512.png",
+  "img/icons/icon-512-maskable.png",
+  "img/icons/apple-touch-icon.png"
 ];
 
-self.addEventListener("install", e => {
+self.addEventListener("install", event => {
   self.skipWaiting();
-  e.waitUntil(
-    caches.open(CACHE).then(c =>
-      c.addAll(ASSETS).catch(err => console.error('Cache install failed:', err))
+  event.waitUntil(
+    caches.open(CACHE).then(cache =>
+      // addAll fallisce in blocco se un solo file manca: mettiamo in cache
+      // uno alla volta, così un'icona rinominata non impedisce
+      // l'installazione dell'intero service worker.
+      Promise.all(ASSETS.map(url =>
+        cache.add(url).catch(err => console.warn("Precache saltato:", url, err))
+      ))
     )
   );
 });
 
-self.addEventListener("activate", e => {
-  e.waitUntil((async () => {
-    const ks = await caches.keys();
+self.addEventListener("activate", event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
     await Promise.all(
-      ks.filter(k => k !== CACHE && k !== "pbv-csv").map(k => caches.delete(k))
+      keys.filter(k => k.startsWith("pbv-") && k !== CACHE).map(k => caches.delete(k))
     );
     await self.clients.claim();
   })());
 });
 
-self.addEventListener("fetch", e => {
-  const u = new URL(e.request.url);
+self.addEventListener("fetch", event => {
+  const request = event.request;
+  if (request.method !== "GET") return;
 
-  /* METEO → sempre live */
-  if (u.hostname === "api.open-meteo.com") return;
+  const url = new URL(request.url);
 
-  /* CSV / Google → network first */
-  if (u.hostname === "docs.google.com" || u.hostname.endsWith("googleusercontent.com")) {
-    e.respondWith(
-      fetch(e.request).then(res => {
-        try {
-          const cp = res.clone();
-          caches.open("pbv-csv").then(c => c.put(e.request, cp));
-        } catch (_) {}
-        return res;
-      }).catch(() => caches.match(e.request))
-    );
-    return;
-  }
+  /* Meteo: sempre dalla rete, mai dalla cache. */
+  if (url.hostname === "api.open-meteo.com") return;
 
-  /* DATA.JS → network first: contiene eventi/sagre/prezzi che cambiano
-     più spesso di CSS/JS statici. Cache-first li avrebbe tenuti bloccati
-     alla versione vista al primo accesso. */
-  if (u.origin === location.origin && /\/js\/data\.js$/.test(u.pathname)) {
-    e.respondWith(
-      fetch(e.request).then(res => {
-        if (res.ok) {
-          try {
-            const cp = res.clone();
-            caches.open(CACHE).then(c => c.put(e.request, cp));
-          } catch (_) {}
+  /* Navigazioni: rete per prima, così un aggiornamento si vede subito;
+     se la rete non c'è, la copia in cache di index.html. */
+  if (request.mode === "navigate") {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(request);
+        if (fresh.ok) {
+          const cache = await caches.open(CACHE);
+          cache.put("./index.html", fresh.clone());
         }
-        return res;
-      }).catch(() => caches.match(e.request))
-    );
+        return fresh;
+      } catch (err) {
+        const cache = await caches.open(CACHE);
+        return (await cache.match(request)) ||
+               (await cache.match("./index.html")) ||
+               (await cache.match("./")) ||
+               Response.error();
+      }
+    })());
     return;
   }
 
-  /* STATIC → cache first */
-  if (u.origin === location.origin) {
-    e.respondWith(
-      caches.match(e.request).then(r =>
-        r || fetch(e.request).then(r2 => {
-          if (r2.ok) {
-            try {
-              const cp = r2.clone();
-              caches.open(CACHE).then(c => c.put(e.request, cp));
-            } catch (_) {}
-          }
-          return r2;
-        })
-      )
-    );
+  if (url.origin !== location.origin) return;
+
+  /* js/data.js e js/config.js cambiano più spesso di CSS e codice
+     (eventi, sagre, prezzi): rete per prima, cache come rete di
+     sicurezza. Cache-first li avrebbe congelati alla prima visita. */
+  if (/\/js\/(data|config)\.js$/.test(url.pathname)) {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(request);
+        if (fresh.ok) {
+          const cache = await caches.open(CACHE);
+          cache.put(request, fresh.clone());
+        }
+        return fresh;
+      } catch (err) {
+        const cached = await caches.match(request);
+        return cached || Response.error();
+      }
+    })());
+    return;
   }
+
+  /* Tutto il resto (CSS, JS, immagini, icone): cache per prima. */
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    try {
+      const fresh = await fetch(request);
+      if (fresh.ok && fresh.type === "basic") {
+        const cache = await caches.open(CACHE);
+        cache.put(request, fresh.clone());
+      }
+      return fresh;
+    } catch (err) {
+      return Response.error();
+    }
+  })());
 });
