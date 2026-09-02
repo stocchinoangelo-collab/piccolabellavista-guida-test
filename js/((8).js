@@ -18,8 +18,6 @@ const DATA = {
       ssid: "PiccolaBellaVista",
       password: "Sardegna2024!"
     },
-    coordinates: { lat: 39.2238, lng: 9.1217 },
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.0!2d9.1217!3d39.2238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzk!5e0!3m2!1sit!2sit!4v1690000000000",
     checkin: "15:00",
     checkout: "11:00",
     phone: "+39 393 110 4422",
@@ -46,7 +44,7 @@ const DATA = {
       id: "poetto",
       name: "Poetto",
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Poetto_beach.jpg",
-      imageCredit: "Chris — CC BY 2.0 — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons — CC BY 2.0",
       distance: 6,
       time: 15,
       type: { it: "Spiaggia urbana", en: "City beach" },
@@ -64,7 +62,7 @@ const DATA = {
       id: "calamosca",
       name: "Cala Mosca",
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Torre_e_faro_di_Calamosca.jpg",
-      imageCredit: "Cristiano Cani — CC BY 2.0 — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons — CC BY 2.0",
       distance: 8,
       time: 18,
       type: { it: "Cala protetta", en: "Sheltered cove" },
@@ -157,7 +155,7 @@ const DATA = {
       id: "storica",
       title: { it: "Cagliari storica", en: "Historic Cagliari" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Castello_(Cagliari).jpg",
-      imageCredit: "Comune di Cagliari — CC BY-SA 3.0 IT — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons — CC BY-SA 3.0",
       label: { it: "Storia", en: "History" },
       text: {
         it: "Perditi nei vicoli di Castello, il quartiere medioevale che domina la città. Visita la Cattedrale di Santa Maria, le Torri Pisane e il Bastione di Saint Remy per una vista mozzafiato.",
@@ -168,7 +166,7 @@ const DATA = {
       id: "panorami",
       title: { it: "Panorami e belvedere", en: "Views and lookouts" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Bastione_di_San_Remy,_prospetto.jpg",
-      imageCredit: "Elisa.Mnn — CC BY-SA 4.0 — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons",
       label: { it: "Vista", en: "Views" },
       text: {
         it: "Dal Bastione di Saint Remy al colle di Sant'Elia, Cagliari offre panorami che abbracciano il Golfo degli Angeli. Non perdere il tramonto dal lungomare.",
@@ -178,7 +176,7 @@ const DATA = {
     {
       id: "mare",
       title: { it: "Il mare in città", en: "The sea in the city" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lungomare_Poetto_-_Cagliari.jpg",
+      image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
       label: { it: "Mare", en: "Sea" },
       text: {
         it: "Il Poetto non è solo una spiaggia: è il salotto di Cagliari. Da maggio a ottobre, la vita cittadina si sposta qui per aperitivi, cene e passeggiate.",
@@ -188,7 +186,7 @@ const DATA = {
     {
       id: "passeggiate",
       title: { it: "Passeggiate autentiche", en: "Authentic walks" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sella_del_Diavolo_-_Cagliari,_Italy_2024-03-29_(05).jpg",
+      image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
       label: { it: "Natura", en: "Nature" },
       text: {
         it: "La Sella del Diavolo è un promontorio che separa il Poetto da Calamosca. Un sentiero facile con vista spettacolare sul mare e sulla città.",
@@ -198,7 +196,7 @@ const DATA = {
     {
       id: "aperitivo",
       title: { it: "Aperitivo e sera", en: "Evening drinks" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Piazza_Yenne_from_largo_Carlo_Felice.jpg",
+      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80",
       label: { it: "Vita sociale", en: "Nightlife" },
       text: {
         it: "I locali di Piazza Yenne e Via Sassari sono il cuore della movida cagliaritana. Per un aperitivo più tranquillo, prova i bar del porto.",
@@ -208,8 +206,8 @@ const DATA = {
     {
       id: "archeologia",
       title: { it: "Cagliari romana", en: "Roman Cagliari" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Cagliari_Anfiteatro_Romano.jpg",
-      imageCredit: "Unukorno — CC BY 3.0 — Wikimedia Commons",
+      image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
+      imageCredit: "Unsplash — immagine rappresentativa (non il vero Anfiteatro Romano, vedi la scheda dedicata in Archeologia)",
       label: { it: "Archeologia", en: "Archaeology" },
       text: {
         it: "L'Anfiteatro Romano, scavato nella roccia, è quel che resta della Cagliari di età imperiale. [DA VERIFICARE: risulta online che possa essere chiuso per restauro in alcuni periodi — controllare prima di consigliarlo agli ospiti]. Nei mesi caldi la città ospita spesso rassegne culturali all'aperto: [DA VERIFICARE] calendario aggiornato di mostre ed eventi archeologici.",
@@ -219,7 +217,7 @@ const DATA = {
     {
       id: "autentici",
       title: { it: "Luoghi autentici", en: "Authentic spots" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mercato_civico_San_Benedetto.jpg",
+      image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
       label: { it: "Cultura", en: "Culture" },
       text: {
         it: "Il mercato di San Benedetto è uno dei più grandi d'Europa. Il quartiere di Stampace conserva l'anima popolare della città con le sue botteghe artigiane.",
@@ -307,7 +305,7 @@ const DATA = {
     {
       id: "piatti",
       title: { it: "Piatti tradizionali", en: "Traditional dishes" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Malloreddus.jpg",
+      image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80",
       text: {
         it: "Il porceddu (maialetto sardo arrosto), i malloreddus (gnocchetti di semola), la fregola (pasta tipo cous cous), il bottarga di muggine e il pane carasau sono solo alcuni dei pilastri della cucina sarda. Ogni piatto racconta secoli di tradizione pastorale e marinara.",
         en: "Porceddu (roast Sardinian suckling pig), malloreddus (small semolina dumplings), fregola (a couscous-like pasta), mullet bottarga and pane carasau are just some of the pillars of Sardinian cooking. Every dish tells centuries of shepherding and seafaring tradition."
@@ -316,7 +314,7 @@ const DATA = {
     {
       id: "vini",
       title: { it: "Vini sardi", en: "Sardinian wines" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Cannonau_di_Sardegna.jpg",
+      image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80",
       text: {
         it: "Il Cannonau (parente del Grenache), il Vermentino di Gallura, il Carignano del Sulcis e il Nuragus sono i grandi vini dell'isola. Non perdete il Mirto, il liquore ai mirti selvatici che chiude ogni pasto sardo.",
         en: "Cannonau (a relative of Grenache), Vermentino di Gallura, Carignano del Sulcis and Nuragus are the island's great wines. Don't miss Mirto, the wild-myrtle liqueur that closes every Sardinian meal."
@@ -325,7 +323,7 @@ const DATA = {
     {
       id: "prodotti",
       title: { it: "Prodotti tipici", en: "Local products" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Pecorino_Sardo_Cheese.jpg",
+      image: "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=800&q=80",
       text: {
         it: "Formaggi pecorini stagionati, miele di corbezzolo, olio extravergine di oliva Biancolilla, carciofi spinosi di Sardegna, e i dolci a base di mandorle come le amaretti e le pardulas.",
         en: "Aged pecorino cheeses, strawberry-tree honey, Biancolilla extra virgin olive oil, Sardinian spiny artichokes, and almond-based sweets like amaretti and pardulas."
@@ -334,7 +332,7 @@ const DATA = {
     {
       id: "dolci",
       title: { it: "Dolci sardi", en: "Sardinian sweets" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/SeadasCA.jpg",
+      image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&q=80",
       text: {
         it: "Le seadas (ravioli fritti con miele e formaggio), le pardulas (tartellette con ricotta e zafferano), gli amaretti e il torrone sardo. Ogni festa ha il suo dolce tradizionale.",
         en: "Seadas (fried pastries with honey and cheese), pardulas (ricotta and saffron tartlets), amaretti, and Sardinian torrone. Every festival has its own traditional sweet."
@@ -343,7 +341,7 @@ const DATA = {
     {
       id: "esperienze",
       title: { it: "Esperienze gastronomiche", en: "Food experiences" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Bottarga.png",
+      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&q=80",
       text: {
         it: "Visitate il mercato di San Benedetto al mattino presto, partecipate a una cena in masseria, o prenotate una degustazione di vini in una cantina del Sulcis. La Sardegna si gusta lentamente.",
         en: "Visit San Benedetto market early in the morning, join a farmhouse dinner, or book a wine tasting at a Sulcis winery. Sardinia is meant to be savoured slowly."
