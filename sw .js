@@ -1,5 +1,5 @@
-/* Piccolabellavista service worker — V3.0 */
-const CACHE = "pbv-v30";
+/* Piccolabellavista service worker — V3.1 */
+const CACHE = "pbv-v31";
 const ASSETS = [
   "./index.html",
   "css/style.css",

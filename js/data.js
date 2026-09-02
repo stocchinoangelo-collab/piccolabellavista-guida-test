@@ -1,6 +1,6 @@
 /* Piccolabellavista — Data & Content v3.2 — contenuti bilingue IT/EN */
 const DATA = {
-  password: "piccolabellavista",
+  password: "test2026",
 
   casa: {
     image: "img/casa/panoramica.jpg",
@@ -16,7 +16,7 @@ const DATA = {
     },
     wifi: {
       ssid: "PiccolaBellaVista",
-      password: "Sardegna2024!"
+      password: "wifitest2026"
     },
     coordinates: { lat: 39.2238, lng: 9.1217 },
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.0!2d9.1217!3d39.2238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzk!5e0!3m2!1sit!2sit!4v1690000000000",
@@ -374,7 +374,7 @@ const DATA = {
       { icon: "🏧", title: { it: "Bancomat", en: "ATM" }, value: { it: "Intesa Sanpaolo e UniCredit in Via dei Grilli, a 200m.", en: "Intesa Sanpaolo and UniCredit on Via dei Grilli, 200 m away." } },
       { icon: "🛒", title: { it: "Supermercato", en: "Supermarket" }, value: { it: "Conad e Lidl in Via Is Mirrionis, aperto fino alle 20:30.", en: "Conad and Lidl on Via Is Mirrionis, open until 8:30 PM." } },
       { icon: "⛽", title: { it: "Benzinaio", en: "Petrol station" }, value: { it: "IP a 400m in Via della Pineta, aperto 24h.", en: "IP station 400 m away on Via della Pineta, open 24h." } },
-      { icon: "📶", title: { it: "Wi-Fi", en: "Wi-Fi" }, value: { it: "SSID: PiccolaBellaVista | Password: Sardegna2024!", en: "SSID: PiccolaBellaVista | Password: Sardegna2024!" } },
+      { icon: "📶", title: { it: "Wi-Fi", en: "Wi-Fi" }, value: { it: "SSID: PiccolaBellaVista | Password: wifitest2026", en: "SSID: PiccolaBellaVista | Password: wifitest2026" } },
       { icon: "🗑️", title: { it: "Raccolta differenziata", en: "Recycling" }, value: { it: "Carta, plastica, vetro, umido. Calendario in cucina.", en: "Paper, plastic, glass, organic. Schedule posted in the kitchen." } },
       { icon: "🐕", title: { it: "Veterinario", en: "Vet" }, value: { it: "Ambulatorio Veterinario Pirri, Via Santa Gilla 12.", en: "Ambulatorio Veterinario Pirri, Via Santa Gilla 12." } }
     ]
