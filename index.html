@@ -9,10 +9,16 @@
 <meta name="theme-color" content="#faf7f2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PBV Guida">
 <meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.svg">
+<!-- FIX: icon.svg da solo non basta su iOS/Safari (apple-touch-icon SVG non è
+     supportato in modo affidabile); aggiunte varianti PNG generate in
+     img/icons/. Vedi CHANGELOG.md. -->
+<link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" sizes="192x192" href="img/icons/icon-192.png">
+<link rel="icon" sizes="512x512" href="img/icons/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
@@ -116,8 +122,12 @@
   </div>
 </div>
 
+<!-- FIX: prima il gate (position:fixed, z-index:1000) copriva sempre questo
+     messaggio quando JS è disattivato, perché il gate resta nel markup a
+     prescindere. z-index più alto + posizionamento fisso così è sempre
+     leggibile in quel caso. -->
 <noscript>
-  <div style="padding:2rem;text-align:center;font-family:Inter,sans-serif;background:#faf7f2;color:#4a4a48;">
+  <div style="position:fixed;inset:0;z-index:1002;display:flex;align-items:center;justify-content:center;padding:2rem;text-align:center;font-family:Inter,sans-serif;background:#faf7f2;color:#4a4a48;">
     Questa guida richiede JavaScript attivo. / JavaScript is required. / JavaScript wird benötigt.
   </div>
 </noscript>

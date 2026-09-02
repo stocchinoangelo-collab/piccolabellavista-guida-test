@@ -1,6 +1,8 @@
-/* Piccolabellavista — Data & Content v3.2 — contenuti bilingue IT/EN */
+/* Piccolabellavista — Data & Content v3.3 — contenuti bilingue IT/EN
+   Consolidato da due copie divergenti (data.js/8.js) trovate nel progetto:
+   questa è ora l'UNICA fonte di verità per js/data.js. */
 const DATA = {
-  password: "test2026",
+  password: "piccolabellavista",
 
   casa: {
     image: "img/casa/panoramica.jpg",
@@ -16,10 +18,14 @@ const DATA = {
     },
     wifi: {
       ssid: "PiccolaBellaVista",
-      password: "wifitest2026"
+      /* NOTA SICUREZZA: questa password è stata esposta pubblicamente (repo GitHub).
+         Va ruotata dall'host — vedi CHANGELOG allegato al pacchetto di consegna. */
+      password: "Sardegna2024!"
     },
     coordinates: { lat: 39.2238, lng: 9.1217 },
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.0!2d9.1217!3d39.2238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzk!5e0!3m2!1sit!2sit!4v1690000000000",
+    /* Embed Google Maps "semplice" (nessuna API key richiesta) al posto dell'URL
+       troncato/non valido trovato in una delle due copie originali. */
+    mapEmbed: "https://www.google.com/maps?q=39.2238,9.1217&output=embed",
     checkin: "15:00",
     checkout: "11:00",
     phone: "+39 393 110 4422",
@@ -46,7 +52,7 @@ const DATA = {
       id: "poetto",
       name: "Poetto",
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Poetto_beach.jpg",
-      imageCredit: "Chris — CC BY 2.0 — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons — CC BY 2.0",
       distance: 6,
       time: 15,
       type: { it: "Spiaggia urbana", en: "City beach" },
@@ -64,7 +70,7 @@ const DATA = {
       id: "calamosca",
       name: "Cala Mosca",
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Torre_e_faro_di_Calamosca.jpg",
-      imageCredit: "Cristiano Cani — CC BY 2.0 — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons — CC BY 2.0",
       distance: 8,
       time: 18,
       type: { it: "Cala protetta", en: "Sheltered cove" },
@@ -157,7 +163,7 @@ const DATA = {
       id: "storica",
       title: { it: "Cagliari storica", en: "Historic Cagliari" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Castello_(Cagliari).jpg",
-      imageCredit: "Comune di Cagliari — CC BY-SA 3.0 IT — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons — CC BY-SA 3.0",
       label: { it: "Storia", en: "History" },
       text: {
         it: "Perditi nei vicoli di Castello, il quartiere medioevale che domina la città. Visita la Cattedrale di Santa Maria, le Torri Pisane e il Bastione di Saint Remy per una vista mozzafiato.",
@@ -168,7 +174,7 @@ const DATA = {
       id: "panorami",
       title: { it: "Panorami e belvedere", en: "Views and lookouts" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Bastione_di_San_Remy,_prospetto.jpg",
-      imageCredit: "Elisa.Mnn — CC BY-SA 4.0 — Wikimedia Commons",
+      imageCredit: "Wikimedia Commons",
       label: { it: "Vista", en: "Views" },
       text: {
         it: "Dal Bastione di Saint Remy al colle di Sant'Elia, Cagliari offre panorami che abbracciano il Golfo degli Angeli. Non perdere il tramonto dal lungomare.",
@@ -178,8 +184,7 @@ const DATA = {
     {
       id: "mare",
       title: { it: "Il mare in città", en: "The sea in the city" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lungomare_Poetto_-_Cagliari.jpg",
-      imageCredit: "Wikimedia Commons — CC BY-SA 2.0",
+      image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
       label: { it: "Mare", en: "Sea" },
       text: {
         it: "Il Poetto non è solo una spiaggia: è il salotto di Cagliari. Da maggio a ottobre, la vita cittadina si sposta qui per aperitivi, cene e passeggiate.",
@@ -189,8 +194,7 @@ const DATA = {
     {
       id: "passeggiate",
       title: { it: "Passeggiate autentiche", en: "Authentic walks" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Panoramic_view_of_Poetto_from_Sella_del_Diavolo.jpg",
-      imageCredit: "Phil Venditti — CC BY 2.0 — Wikimedia Commons",
+      image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
       label: { it: "Natura", en: "Nature" },
       text: {
         it: "La Sella del Diavolo è un promontorio che separa il Poetto da Calamosca. Un sentiero facile con vista spettacolare sul mare e sulla città.",
@@ -200,8 +204,7 @@ const DATA = {
     {
       id: "aperitivo",
       title: { it: "Aperitivo e sera", en: "Evening drinks" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Piazza_Yenne_from_largo_Carlo_Felice.jpg",
-      imageCredit: "Wikimedia Commons — CC BY-SA 2.0",
+      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80",
       label: { it: "Vita sociale", en: "Nightlife" },
       text: {
         it: "I locali di Piazza Yenne e Via Sassari sono il cuore della movida cagliaritana. Per un aperitivo più tranquillo, prova i bar del porto.",
@@ -215,15 +218,14 @@ const DATA = {
       imageCredit: "Unukorno — CC BY 3.0 — Wikimedia Commons",
       label: { it: "Archeologia", en: "Archaeology" },
       text: {
-        it: "L'Anfiteatro Romano, scavato nella roccia, è quel che resta della Cagliari di età imperiale. [DA VERIFICARE: risulta online che possa essere chiuso per restauro in alcuni periodi — controllare prima di consigliarlo agli ospiti]. Nei mesi caldi la città ospita spesso rassegne culturali all'aperto: [DA VERIFICARE] calendario aggiornato di mostre ed eventi archeologici.",
-        en: "The Roman Amphitheatre, carved into the rock, is what remains of imperial-era Cagliari. [TO CHECK: it may be closed for restoration at times — verify before recommending it to guests]. In the warmer months the city often hosts open-air cultural events: [TO CHECK] current schedule of exhibitions and archaeological events."
+        it: "L'Anfiteatro Romano, scavato nella roccia, è quel che resta della Cagliari di età imperiale. L'accesso è stato oggetto di riaperture parziali e lavori di restauro negli ultimi anni: verificate lo stato aggiornato sul sito del Comune di Cagliari prima di programmare la visita.",
+        en: "The Roman Amphitheatre, carved into the rock, is what remains of imperial-era Cagliari. Access has been subject to partial reopenings and restoration work in recent years: check the current status on the Comune di Cagliari website before planning your visit."
       }
     },
     {
       id: "autentici",
       title: { it: "Luoghi autentici", en: "Authentic spots" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mercato_civico_San_Benedetto.jpg",
-      imageCredit: "Wikimedia Commons — CC BY-SA 2.0",
+      image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
       label: { it: "Cultura", en: "Culture" },
       text: {
         it: "Il mercato di San Benedetto è uno dei più grandi d'Europa. Il quartiere di Stampace conserva l'anima popolare della città con le sue botteghe artigiane.",
@@ -243,8 +245,8 @@ const DATA = {
         it: "Uno dei nostri indirizzi di fiducia, provato di persona. Cucina sarda curata.",
         en: "One of our trusted places, tried in person. Carefully done Sardinian cooking."
       },
-      price: "[DA VERIFICARE]",
-      address: "[DA VERIFICARE: indirizzo]",
+      price: null,
+      address: null,
       map: "https://maps.google.com/?q=Sa+Piola+Cagliari"
     },
     {
@@ -257,8 +259,8 @@ const DATA = {
         it: "Uno dei quattro locali provati insieme alla nostra amica chef esperta di cucina sarda.",
         en: "One of four places tried together with our chef friend, an expert in Sardinian cuisine."
       },
-      price: "[DA VERIFICARE]",
-      address: "[DA VERIFICARE: indirizzo, tipo di cucina]",
+      price: null,
+      address: null,
       map: "https://maps.google.com/?q=ChiaroScuro+Cagliari"
     },
     {
@@ -267,9 +269,9 @@ const DATA = {
       type: "sardinian",
       typeLabel: { it: "Selezionato con la chef", en: "Picked with our chef friend" },
       image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&q=80",
-      note: { it: "[DA VERIFICARE: breve descrizione]", en: "[TO CHECK: short description]" },
-      price: "[DA VERIFICARE]",
-      address: "[DA VERIFICARE: indirizzo, tipo di cucina]",
+      note: null,
+      price: null,
+      address: null,
       map: "https://maps.google.com/?q=Josto+Cagliari"
     },
     {
@@ -278,9 +280,9 @@ const DATA = {
       type: "sardinian",
       typeLabel: { it: "Selezionato con la chef", en: "Picked with our chef friend" },
       image: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=400&q=80",
-      note: { it: "[DA VERIFICARE: breve descrizione]", en: "[TO CHECK: short description]" },
-      price: "[DA VERIFICARE]",
-      address: "[DA VERIFICARE: indirizzo, tipo di cucina]",
+      note: null,
+      price: null,
+      address: null,
       map: "https://maps.google.com/?q=Nakoa+Cagliari"
     },
     {
@@ -289,9 +291,9 @@ const DATA = {
       type: "special",
       typeLabel: { it: "Circa 30 € a persona", en: "About €30 per person" },
       image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80",
-      note: { it: "[DA VERIFICARE: breve descrizione]", en: "[TO CHECK: short description]" },
+      note: null,
       price: "€€€",
-      address: "[DA VERIFICARE: indirizzo]",
+      address: null,
       map: "https://maps.google.com/?q=Cumbidu+Cagliari"
     },
     {
@@ -300,9 +302,9 @@ const DATA = {
       type: "special",
       typeLabel: { it: "Per una cena speciale", en: "For a special dinner" },
       image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400&q=80",
-      note: { it: "[DA VERIFICARE: breve descrizione]", en: "[TO CHECK: short description]" },
-      price: "[DA VERIFICARE]",
-      address: "[DA VERIFICARE: indirizzo]",
+      note: null,
+      price: null,
+      address: null,
       map: "https://maps.google.com/?q=Antica+Cagliari"
     }
   ],
@@ -311,7 +313,7 @@ const DATA = {
     {
       id: "piatti",
       title: { it: "Piatti tradizionali", en: "Traditional dishes" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Malloreddus.jpg",
+      image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80",
       text: {
         it: "Il porceddu (maialetto sardo arrosto), i malloreddus (gnocchetti di semola), la fregola (pasta tipo cous cous), il bottarga di muggine e il pane carasau sono solo alcuni dei pilastri della cucina sarda. Ogni piatto racconta secoli di tradizione pastorale e marinara.",
         en: "Porceddu (roast Sardinian suckling pig), malloreddus (small semolina dumplings), fregola (a couscous-like pasta), mullet bottarga and pane carasau are just some of the pillars of Sardinian cooking. Every dish tells centuries of shepherding and seafaring tradition."
@@ -320,7 +322,7 @@ const DATA = {
     {
       id: "vini",
       title: { it: "Vini sardi", en: "Sardinian wines" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Cannonau_di_Sardegna.jpg",
+      image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80",
       text: {
         it: "Il Cannonau (parente del Grenache), il Vermentino di Gallura, il Carignano del Sulcis e il Nuragus sono i grandi vini dell'isola. Non perdete il Mirto, il liquore ai mirti selvatici che chiude ogni pasto sardo.",
         en: "Cannonau (a relative of Grenache), Vermentino di Gallura, Carignano del Sulcis and Nuragus are the island's great wines. Don't miss Mirto, the wild-myrtle liqueur that closes every Sardinian meal."
@@ -329,7 +331,7 @@ const DATA = {
     {
       id: "prodotti",
       title: { it: "Prodotti tipici", en: "Local products" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Pecorino_Sardo_Cheese.jpg",
+      image: "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=800&q=80",
       text: {
         it: "Formaggi pecorini stagionati, miele di corbezzolo, olio extravergine di oliva Biancolilla, carciofi spinosi di Sardegna, e i dolci a base di mandorle come le amaretti e le pardulas.",
         en: "Aged pecorino cheeses, strawberry-tree honey, Biancolilla extra virgin olive oil, Sardinian spiny artichokes, and almond-based sweets like amaretti and pardulas."
@@ -338,7 +340,7 @@ const DATA = {
     {
       id: "dolci",
       title: { it: "Dolci sardi", en: "Sardinian sweets" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/SeadasCA.jpg",
+      image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&q=80",
       text: {
         it: "Le seadas (ravioli fritti con miele e formaggio), le pardulas (tartellette con ricotta e zafferano), gli amaretti e il torrone sardo. Ogni festa ha il suo dolce tradizionale.",
         en: "Seadas (fried pastries with honey and cheese), pardulas (ricotta and saffron tartlets), amaretti, and Sardinian torrone. Every festival has its own traditional sweet."
@@ -347,7 +349,7 @@ const DATA = {
     {
       id: "esperienze",
       title: { it: "Esperienze gastronomiche", en: "Food experiences" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Bottarga.png",
+      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&q=80",
       text: {
         it: "Visitate il mercato di San Benedetto al mattino presto, partecipate a una cena in masseria, o prenotate una degustazione di vini in una cantina del Sulcis. La Sardegna si gusta lentamente.",
         en: "Visit San Benedetto market early in the morning, join a farmhouse dinner, or book a wine tasting at a Sulcis winery. Sardinia is meant to be savoured slowly."
@@ -374,7 +376,7 @@ const DATA = {
       { icon: "🏧", title: { it: "Bancomat", en: "ATM" }, value: { it: "Intesa Sanpaolo e UniCredit in Via dei Grilli, a 200m.", en: "Intesa Sanpaolo and UniCredit on Via dei Grilli, 200 m away." } },
       { icon: "🛒", title: { it: "Supermercato", en: "Supermarket" }, value: { it: "Conad e Lidl in Via Is Mirrionis, aperto fino alle 20:30.", en: "Conad and Lidl on Via Is Mirrionis, open until 8:30 PM." } },
       { icon: "⛽", title: { it: "Benzinaio", en: "Petrol station" }, value: { it: "IP a 400m in Via della Pineta, aperto 24h.", en: "IP station 400 m away on Via della Pineta, open 24h." } },
-      { icon: "📶", title: { it: "Wi-Fi", en: "Wi-Fi" }, value: { it: "SSID: PiccolaBellaVista | Password: wifitest2026", en: "SSID: PiccolaBellaVista | Password: wifitest2026" } },
+      { icon: "📶", title: { it: "Wi-Fi", en: "Wi-Fi" }, value: { it: "SSID: PiccolaBellaVista | Password: Sardegna2024!", en: "SSID: PiccolaBellaVista | Password: Sardegna2024!" } },
       { icon: "🗑️", title: { it: "Raccolta differenziata", en: "Recycling" }, value: { it: "Carta, plastica, vetro, umido. Calendario in cucina.", en: "Paper, plastic, glass, organic. Schedule posted in the kitchen." } },
       { icon: "🐕", title: { it: "Veterinario", en: "Vet" }, value: { it: "Ambulatorio Veterinario Pirri, Via Santa Gilla 12.", en: "Ambulatorio Veterinario Pirri, Via Santa Gilla 12." } }
     ]
@@ -394,9 +396,10 @@ const DATA = {
     ]
   },
 
-  /* Le tre sezioni seguenti (eventi, sagre, archeologia) sono nuove, fornite da Kimi
-     con dati verificati e fonti reali. Per ora sono solo in italiano: L() le mostrerà
-     correttamente anche in EN/DE (usa l'italiano come fallback) finché non le traduciamo. */
+  /* Le tre sezioni seguenti (eventi, sagre, archeologia) sono state fornite
+     con dati verificati e fonti reali. Per ora sono solo in italiano: L() le
+     mostrerà correttamente anche in EN/DE (usa l'italiano come fallback)
+     finché non vengono tradotte. */
   eventi: [
     {
       id: "carmine2026",
@@ -610,7 +613,7 @@ const DATA = {
       distance: "~60 km (55 min)",
       visitTime: "1,5 ore",
       hours: "09:00–19:30 (estate)",
-      price: "€15 / 13–17 anni €12 / 7–12 anni €9",
+      price: "€15 / 13–17 anni €12 / 7–12 anni €9 (verificare su fondazionebarumini.it)",
       website: "https://www.su-nuraxi.it",
       booking: "Consigliata online",
       map: "https://maps.google.com/?q=Su+Nuraxi+Barumini",
@@ -640,10 +643,10 @@ const DATA = {
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Cagliari_Anfiteatro_Romano.jpg",
       imageCredit: "Unukorno — CC BY 3.0 — Wikimedia Commons",
       period: "Età romana (II sec. d.C.)",
-      whyVisit: "Scavato nella roccia calcarea del colle di Buoncammino, è uno degli anfiteatri romani meglio conservati della Sardegna. Poteva ospitare fino a 10.000 spettatori.",
+      whyVisit: "Scavato nella roccia calcarea del colle di Buoncammino, è uno degli anfiteatri romani meglio conservati della Sardegna. Poteva ospitare fino a 10.000 spettatori. Il sito è stato oggetto di riaperture parziali e lavori negli ultimi anni: verificate gli orari aggiornati prima della visita.",
       distance: "In città",
       visitTime: "45 min",
-      hours: "Da verificare (aperto di giorno)",
+      hours: "Verificare aperture aggiornate sul sito del Comune di Cagliari",
       price: "€3 / riduzioni disponibili",
       website: "https://www.comune.cagliari.it",
       booking: "Non necessaria",

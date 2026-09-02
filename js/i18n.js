@@ -1,4 +1,13 @@
-/* Piccolabellavista — i18n v3.0 */
+/* Piccolabellavista — i18n v3.1
+   Fix rispetto alla v3.0:
+   - weather / whereWeAre / openMap: prima esistevano SOLO nel blocco `de`,
+     e in una forma sbagliata (oggetto {it,en,de} invece di stringa piatta).
+     app.js le usa con t() in tutte le lingue: senza questa correzione, in
+     IT/EN comparivano come testo letterale "weather" / "whereWeAre" / "openMap".
+   - password / phone: chiavi mancanti usate da app.js (renderCasa) ma mai
+     definite; "phone" in particolare riusava per errore la chiave "contact",
+     mostrando "Contatti" anche sulla riga del numero di telefono.
+*/
 const I18N = {
   it: {
     gate_text: "Guida riservata agli ospiti di Piccolabellavista",
@@ -94,11 +103,18 @@ const I18N = {
     wind_subtitle: "Scegli in base alla giornata",
     close: "Chiudi",
     wifi: "Wi-Fi",
+    password: "Password",
     checkin: "Check-in",
     checkout: "Check-out",
     contact: "Contatti",
+    phone: "Telefono",
     rules: "Regole della casa",
     services: "Servizi",
+    weather: "Meteo Cagliari",
+    weather_loading: "Caricamento...",
+    weather_unavailable: "Non disponibile",
+    whereWeAre: "Dove siamo",
+    openMap: "Apri in Google Maps →",
   },
   en: {
     gate_text: "Private guide for Piccolabellavista guests",
@@ -194,11 +210,18 @@ const I18N = {
     wind_subtitle: "Choose based on the day",
     close: "Close",
     wifi: "Wi-Fi",
+    password: "Password",
     checkin: "Check-in",
     checkout: "Check-out",
     contact: "Contacts",
+    phone: "Phone",
     rules: "House rules",
     services: "Services",
+    weather: "Weather Cagliari",
+    weather_loading: "Loading...",
+    weather_unavailable: "Unavailable",
+    whereWeAre: "Where we are",
+    openMap: "Open in Google Maps →",
   },
   de: {
     gate_text: "Privater Reiseführer für Gäste von Piccolabellavista",
@@ -294,15 +317,19 @@ const I18N = {
     wind_subtitle: "Wählen Sie je nach Wetter",
     close: "Schließen",
     wifi: "Wi-Fi",
+    password: "Passwort",
     checkin: "Check-in",
     checkout: "Check-out",
     contact: "Kontakt",
+    phone: "Telefon",
     rules: "Hausregeln",
     services: "Services",
-    weather: { it: "Meteo Cagliari", en: "Weather Cagliari", de: "Wetter Cagliari" },
-  whereWeAre: { it: "Dove siamo", en: "Where we are", de: "Wo wir sind" },
-  openMap: { it: "Apri in Google Maps →", en: "Open in Google Maps →", de: "In Google Maps öffnen →" },
-}
+    weather: "Wetter Cagliari",
+    weather_loading: "Laden...",
+    weather_unavailable: "Nicht verfügbar",
+    whereWeAre: "Wo wir sind",
+    openMap: "In Google Maps öffnen →",
+  }
 };
 
 let currentLang = localStorage.getItem('pbv-lang') || 'it';
