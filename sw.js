@@ -17,17 +17,17 @@
      ed è documentato nel README.
    ============================================================ */
 
-const VERSION = "4.0.0";
+const VERSION = "4.0.1";
 const CACHE = `pbv-${VERSION}`;
 
 const ASSETS = [
   "./",
   "./index.html",
-  "css/style.css",
-  "js/config.js",
-  "js/i18n.js",
-  "js/data.js",
-  "js/app.js",
+  "style.css",
+  "config.js",
+  "i18n.js",
+  "data.js",
+  "app.js",
   "manifest.webmanifest",
   "icon.svg",
   "img/casa/panoramica.jpg",
@@ -100,7 +100,7 @@ self.addEventListener("fetch", event => {
   /* js/data.js e js/config.js cambiano più spesso di CSS e codice
      (eventi, sagre, prezzi): rete per prima, cache come rete di
      sicurezza. Cache-first li avrebbe congelati alla prima visita. */
-  if (/\/js\/(data|config)\.js$/.test(url.pathname)) {
+  if (/\/(data|config)\.js$/.test(url.pathname)) {
     event.respondWith((async () => {
       try {
         const fresh = await fetch(request);
