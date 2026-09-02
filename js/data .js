@@ -179,6 +179,7 @@ const DATA = {
       id: "mare",
       title: { it: "Il mare in città", en: "The sea in the city" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lungomare_Poetto_-_Cagliari.jpg",
+      imageCredit: "Wikimedia Commons — CC BY-SA 2.0",
       label: { it: "Mare", en: "Sea" },
       text: {
         it: "Il Poetto non è solo una spiaggia: è il salotto di Cagliari. Da maggio a ottobre, la vita cittadina si sposta qui per aperitivi, cene e passeggiate.",
@@ -188,7 +189,8 @@ const DATA = {
     {
       id: "passeggiate",
       title: { it: "Passeggiate autentiche", en: "Authentic walks" },
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sella_del_Diavolo_-_Cagliari,_Italy_2024-03-29_(05).jpg",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Panoramic_view_of_Poetto_from_Sella_del_Diavolo.jpg",
+      imageCredit: "Phil Venditti — CC BY 2.0 — Wikimedia Commons",
       label: { it: "Natura", en: "Nature" },
       text: {
         it: "La Sella del Diavolo è un promontorio che separa il Poetto da Calamosca. Un sentiero facile con vista spettacolare sul mare e sulla città.",
@@ -199,6 +201,7 @@ const DATA = {
       id: "aperitivo",
       title: { it: "Aperitivo e sera", en: "Evening drinks" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Piazza_Yenne_from_largo_Carlo_Felice.jpg",
+      imageCredit: "Wikimedia Commons — CC BY-SA 2.0",
       label: { it: "Vita sociale", en: "Nightlife" },
       text: {
         it: "I locali di Piazza Yenne e Via Sassari sono il cuore della movida cagliaritana. Per un aperitivo più tranquillo, prova i bar del porto.",
@@ -220,6 +223,7 @@ const DATA = {
       id: "autentici",
       title: { it: "Luoghi autentici", en: "Authentic spots" },
       image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mercato_civico_San_Benedetto.jpg",
+      imageCredit: "Wikimedia Commons — CC BY-SA 2.0",
       label: { it: "Cultura", en: "Culture" },
       text: {
         it: "Il mercato di San Benedetto è uno dei più grandi d'Europa. Il quartiere di Stampace conserva l'anima popolare della città con le sue botteghe artigiane.",
