@@ -1,2 +1,23 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Dipendenze e build (non usate oggi, ma se un domani serviranno)
+node_modules/
+dist/
+.cache/
+
+# File temporanei e copie di lavoro
+*.bak
+*.orig
+*.tmp
+*.log
+"* copia*"
+"* copy*"
