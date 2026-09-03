@@ -94,7 +94,14 @@
     return 'https://www.google.com/maps/dir/?api=1'
       + '&origin=' + encodeURIComponent(origin)
       + '&destination=' + encodeURIComponent(destination)
-      + '&travelmode=' + encodeURIComponent(mode || 'driving');
+      /* Il mezzo di trasporto NON viene imposto.
+         Con "&travelmode=driving" Google apriva il percorso già bloccato
+         in automobile e nascondeva la scelta: l'ospite che va al Poetto
+         in bici o a piedi doveva rifare tutto. Omettendo il parametro,
+         Maps apre le indicazioni con auto / mezzi / piedi / bici in cima
+         e lascia scegliere. Chi chiama routeUrl può ancora forzare un
+         mezzo passando il secondo argomento, ma di norma non serve. */
+      + (mode ? '&travelmode=' + encodeURIComponent(mode) : '');
   }
 
   /* "Dove siamo": un segnaposto sulla casa, non un percorso. */
