@@ -25,7 +25,7 @@ const CONFIG = {
      Viene mostrata in fondo alla guida, così l'ospite sa quanto è
      fresco quello che sta leggendo. Aggiornala quando tocchi i dati
      (soprattutto eventi e sagre). Formato: AAAA-MM-GG. */
-  lastUpdated: "2026-09-02",
+  lastUpdated: "2026-09-03",
 
   /* Recapiti mostrati nella sezione "La casa" e nel pulsante WhatsApp.
      Sono a `null`, quindi la guida non li mostra affatto e il pulsante
