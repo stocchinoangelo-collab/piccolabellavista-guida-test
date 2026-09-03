@@ -17,7 +17,7 @@
      ed è documentato nel README.
    ============================================================ */
 
-const VERSION = "4.0.1";
+const VERSION = "4.0.2";
 const CACHE = `pbv-${VERSION}`;
 
 const ASSETS = [

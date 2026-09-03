@@ -52,6 +52,61 @@
   const LE = (field) => esc(L(field));
   const TE = (key) => esc(t(key));
 
+  /* ---- Percorsi da casa -------------------------------------------------
+     I link mappa dei dati sono nati come "mostrami questo posto"
+     (maps.google.com/?q=...). Google apre un segnaposto e, se l'ospite
+     chiede il percorso, parte da dove si trova lui in quel momento.
+     Ma i campi `distance` e `time` di ogni scheda sono misurati DALLA
+     CASA: "6 km, 15 minuti" vale da Via Bellavista, non dal Poetto dove
+     magari l'ospite sta leggendo. Le due cose si contraddicevano.
+
+     Qui i link vengono riscritti come percorsi con partenza fissa
+     sull'indirizzo dell'appartamento (DATA.casa.address), così i numeri
+     scritti nella scheda e la mappa che si apre dicono la stessa cosa.
+     Se l'indirizzo è null la guida ripiega sul segnaposto di prima:
+     nessun link rotto, solo la vecchia funzionalità. */
+
+  function homeAddress() {
+    return (typeof DATA !== 'undefined' && DATA.casa && DATA.casa.address) || '';
+  }
+
+  /* Estrae la destinazione da un link "?q=..." dei dati. Se il valore
+     non è un URL lo considera già un nome di luogo. */
+  function mapDestination(value) {
+    if (!value) return '';
+    const raw = String(value);
+    if (!/^https?:/i.test(raw)) return raw;
+    try {
+      return new URL(raw).searchParams.get('q') || '';
+    } catch (err) {
+      return '';
+    }
+  }
+
+  /* "Portami lì partendo da casa". */
+  function routeUrl(value, mode) {
+    const destination = mapDestination(value);
+    if (!destination) return String(value || '');
+    const origin = homeAddress();
+    if (!origin) {
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(destination);
+    }
+    return 'https://www.google.com/maps/dir/?api=1'
+      + '&origin=' + encodeURIComponent(origin)
+      + '&destination=' + encodeURIComponent(destination)
+      + '&travelmode=' + encodeURIComponent(mode || 'driving');
+  }
+
+  /* "Dove siamo": un segnaposto sulla casa, non un percorso. */
+  function homeUrl() {
+    const address = homeAddress();
+    if (address) {
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address);
+    }
+    const c = (typeof DATA !== 'undefined' && DATA.casa && DATA.casa.coordinates) || {};
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.lat + ',' + c.lng);
+  }
+
   /* Etichetta tradotta di un tag di evento. I tag nei dati sono parole
      italiane ("cultura", "feste"): senza questa mappa finivano a schermo
      così com'erano anche in inglese e tedesco. */
@@ -330,7 +385,7 @@
         <h2 class="heading-sm" style="margin:24px 0 12px;" data-i18n="whereWeAre">${TE('whereWeAre')}</h2>
         <div class="map-card" style="margin-bottom:24px;">
           <iframe class="map-card__frame" src="${esc(c.mapEmbed)}" title="${TE('whereWeAre')}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a href="https://maps.google.com/?q=${esc(c.coordinates.lat)},${esc(c.coordinates.lng)}" target="_blank" rel="noopener noreferrer" class="map-card__link" data-i18n="openMap">${TE('openMap')}</a>
+          <a href="${esc(homeUrl())}" target="_blank" rel="noopener noreferrer" class="map-card__link" data-i18n="openMap">${TE('openMap')}</a>
         </div>` : ''}
       </section>
     `;
@@ -384,7 +439,7 @@
                   <span class="beach-card__tag">${LE(b.wind)}</span>
                 </div>
                 <div class="beach-card__actions">
-                  <a class="btn btn--primary btn--small" href="${esc(b.map)}" target="_blank" rel="noopener noreferrer">${TE('beach_map')}</a>
+                  <a class="btn btn--primary btn--small" href="${esc(routeUrl(b.map))}" target="_blank" rel="noopener noreferrer">${TE('beach_map')}</a>
                   <button type="button" class="btn btn--secondary btn--small" data-beach="${esc(b.id)}">${TE('beach_details')}</button>
                 </div>
               </div>
@@ -450,7 +505,7 @@
             const meta = [r.price, r.address].filter(Boolean);
             const note = LE(r.note);
             return `
-              <a class="rest-card" href="${esc(r.map)}" target="_blank" rel="noopener noreferrer">
+              <a class="rest-card" href="${esc(routeUrl(r.map))}" target="_blank" rel="noopener noreferrer">
                 <div class="rest-card__thumb">${imgTag(r.image, r.name)}</div>
                 <div class="rest-card__body">
                   <span class="rest-card__type">${LE(r.typeLabel)}</span>

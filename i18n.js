@@ -88,7 +88,7 @@ const STRINGS = {
     beach_today: ["Oggi dove andare?", "Where to go today?", "Wohin heute?"],
     beach_distance: ["km", "km", "km"],
     beach_time: ["min", "min", "Min"],
-    beach_map: ["Apri mappa", "Open map", "Karte öffnen"],
+    beach_map: ["Percorso da casa", "Route from the flat", "Route ab Wohnung"],
     beach_wind: ["Vento", "Wind", "Wind"],
     tag_calm: ["Mare calmo", "Calm sea", "Ruhiges Meer"],
     tag_wind: ["Poco vento", "Low wind", "Wenig Wind"],

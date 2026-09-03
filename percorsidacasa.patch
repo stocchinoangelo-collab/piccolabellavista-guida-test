@@ -1,0 +1,164 @@
+diff --git a/app.js b/app.js
+index 086716e..7f61356 100644
+--- a/app.js
++++ b/app.js
+@@ -52,6 +52,61 @@
+   const LE = (field) => esc(L(field));
+   const TE = (key) => esc(t(key));
+ 
++  /* ---- Percorsi da casa -------------------------------------------------
++     I link mappa dei dati sono nati come "mostrami questo posto"
++     (maps.google.com/?q=...). Google apre un segnaposto e, se l'ospite
++     chiede il percorso, parte da dove si trova lui in quel momento.
++     Ma i campi `distance` e `time` di ogni scheda sono misurati DALLA
++     CASA: "6 km, 15 minuti" vale da Via Bellavista, non dal Poetto dove
++     magari l'ospite sta leggendo. Le due cose si contraddicevano.
++
++     Qui i link vengono riscritti come percorsi con partenza fissa
++     sull'indirizzo dell'appartamento (DATA.casa.address), così i numeri
++     scritti nella scheda e la mappa che si apre dicono la stessa cosa.
++     Se l'indirizzo è null la guida ripiega sul segnaposto di prima:
++     nessun link rotto, solo la vecchia funzionalità. */
++
++  function homeAddress() {
++    return (typeof DATA !== 'undefined' && DATA.casa && DATA.casa.address) || '';
++  }
++
++  /* Estrae la destinazione da un link "?q=..." dei dati. Se il valore
++     non è un URL lo considera già un nome di luogo. */
++  function mapDestination(value) {
++    if (!value) return '';
++    const raw = String(value);
++    if (!/^https?:/i.test(raw)) return raw;
++    try {
++      return new URL(raw).searchParams.get('q') || '';
++    } catch (err) {
++      return '';
++    }
++  }
++
++  /* "Portami lì partendo da casa". */
++  function routeUrl(value, mode) {
++    const destination = mapDestination(value);
++    if (!destination) return String(value || '');
++    const origin = homeAddress();
++    if (!origin) {
++      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(destination);
++    }
++    return 'https://www.google.com/maps/dir/?api=1'
++      + '&origin=' + encodeURIComponent(origin)
++      + '&destination=' + encodeURIComponent(destination)
++      + '&travelmode=' + encodeURIComponent(mode || 'driving');
++  }
++
++  /* "Dove siamo": un segnaposto sulla casa, non un percorso. */
++  function homeUrl() {
++    const address = homeAddress();
++    if (address) {
++      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address);
++    }
++    const c = (typeof DATA !== 'undefined' && DATA.casa && DATA.casa.coordinates) || {};
++    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.lat + ',' + c.lng);
++  }
++
+   /* Etichetta tradotta di un tag di evento. I tag nei dati sono parole
+      italiane ("cultura", "feste"): senza questa mappa finivano a schermo
+      così com'erano anche in inglese e tedesco. */
+@@ -330,7 +385,7 @@
+         <h2 class="heading-sm" style="margin:24px 0 12px;" data-i18n="whereWeAre">${TE('whereWeAre')}</h2>
+         <div class="map-card" style="margin-bottom:24px;">
+           <iframe class="map-card__frame" src="${esc(c.mapEmbed)}" title="${TE('whereWeAre')}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+-          <a href="https://maps.google.com/?q=${esc(c.coordinates.lat)},${esc(c.coordinates.lng)}" target="_blank" rel="noopener noreferrer" class="map-card__link" data-i18n="openMap">${TE('openMap')}</a>
++          <a href="${esc(homeUrl())}" target="_blank" rel="noopener noreferrer" class="map-card__link" data-i18n="openMap">${TE('openMap')}</a>
+         </div>` : ''}
+       </section>
+     `;
+@@ -384,7 +439,7 @@
+                   <span class="beach-card__tag">${LE(b.wind)}</span>
+                 </div>
+                 <div class="beach-card__actions">
+-                  <a class="btn btn--primary btn--small" href="${esc(b.map)}" target="_blank" rel="noopener noreferrer">${TE('beach_map')}</a>
++                  <a class="btn btn--primary btn--small" href="${esc(routeUrl(b.map))}" target="_blank" rel="noopener noreferrer">${TE('beach_map')}</a>
+                   <button type="button" class="btn btn--secondary btn--small" data-beach="${esc(b.id)}">${TE('beach_details')}</button>
+                 </div>
+               </div>
+@@ -450,7 +505,7 @@
+             const meta = [r.price, r.address].filter(Boolean);
+             const note = LE(r.note);
+             return `
+-              <a class="rest-card" href="${esc(r.map)}" target="_blank" rel="noopener noreferrer">
++              <a class="rest-card" href="${esc(routeUrl(r.map))}" target="_blank" rel="noopener noreferrer">
+                 <div class="rest-card__thumb">${imgTag(r.image, r.name)}</div>
+                 <div class="rest-card__body">
+                   <span class="rest-card__type">${LE(r.typeLabel)}</span>
+diff --git a/config.js b/config.js
+index 9d094c3..0832533 100644
+--- a/config.js
++++ b/config.js
+@@ -25,7 +25,7 @@ const CONFIG = {
+      Viene mostrata in fondo alla guida, così l'ospite sa quanto è
+      fresco quello che sta leggendo. Aggiornala quando tocchi i dati
+      (soprattutto eventi e sagre). Formato: AAAA-MM-GG. */
+-  lastUpdated: "2026-09-02",
++  lastUpdated: "2026-09-03",
+ 
+   /* Recapiti mostrati nella sezione "La casa" e nel pulsante WhatsApp.
+      Sono a `null`, quindi la guida non li mostra affatto e il pulsante
+diff --git a/data.js b/data.js
+index 8a87955..3cb8e1e 100644
+--- a/data.js
++++ b/data.js
+@@ -30,8 +30,26 @@ const DATA = {
+       en: "A bright, welcoming apartment in the heart of Pirri, minutes from central Cagliari. Perfect for exploring the city and the beaches of southern Sardinia.",
+       de: "Eine helle, gemütliche Wohnung mitten in Pirri, wenige Minuten vom Zentrum Cagliaris entfernt. Ideal, um die Stadt und die Strände Südsardiniens zu erkunden."
+     },
++    /* Indirizzo dell'appartamento.
++       È il punto di partenza di TUTTI i percorsi della guida (spiagge,
++       ristoranti, "dove siamo"): si cambia qui e cambia ovunque.
++
++       ⚠️  Questo file è pubblico, come tutto il repository. Scrivere qui
++       l'indirizzo significa renderlo leggibile a chiunque, non solo agli
++       ospiti. Se non lo vuoi pubblico, mettilo a null: la guida torna a
++       mostrare i luoghi senza percorso, senza rompersi. */
++    address: "Via Bellavista 14, Pirri, Cagliari",
++
++    /* DA VERIFICARE: queste coordinate non sono state controllate. Apri
++       https://www.google.com/maps?q=39.2238,9.1217 e guarda dove cade il
++       segnaposto: se non è Via Bellavista 14, correggile (tasto destro
++       sul punto giusto in Google Maps → il primo valore in cima al menu). */
+     coordinates: { lat: 39.2238, lng: 9.1217 },
+-    mapEmbed: "https://www.google.com/maps?q=39.2238,9.1217&output=embed",
++
++    /* Mappa incorporata nella home. Segue l'indirizzo qui sopra, non più
++       le coordinate: finché quelle non sono verificate, l'indirizzo è il
++       dato più affidabile dei due. */
++    mapEmbed: "https://www.google.com/maps?q=Via%20Bellavista%2014%2C%20Pirri%2C%20Cagliari&output=embed",
+     checkin: "15:00",
+     checkout: "11:00",
+     services: [
+diff --git a/i18n.js b/i18n.js
+index dc28d6a..205e791 100644
+--- a/i18n.js
++++ b/i18n.js
+@@ -88,7 +88,7 @@ const STRINGS = {
+     beach_today: ["Oggi dove andare?", "Where to go today?", "Wohin heute?"],
+     beach_distance: ["km", "km", "km"],
+     beach_time: ["min", "min", "Min"],
+-    beach_map: ["Apri mappa", "Open map", "Karte öffnen"],
++    beach_map: ["Percorso da casa", "Route from the flat", "Route ab Wohnung"],
+     beach_wind: ["Vento", "Wind", "Wind"],
+     tag_calm: ["Mare calmo", "Calm sea", "Ruhiges Meer"],
+     tag_wind: ["Poco vento", "Low wind", "Wenig Wind"],
+diff --git a/sw.js b/sw.js
+index 8dcb2f4..b2ef77f 100644
+--- a/sw.js
++++ b/sw.js
+@@ -17,7 +17,7 @@
+      ed è documentato nel README.
+    ============================================================ */
+ 
+-const VERSION = "4.0.1";
++const VERSION = "4.0.2";
+ const CACHE = `pbv-${VERSION}`;
+ 
+ const ASSETS = [

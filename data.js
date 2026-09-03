@@ -30,8 +30,26 @@ const DATA = {
       en: "A bright, welcoming apartment in the heart of Pirri, minutes from central Cagliari. Perfect for exploring the city and the beaches of southern Sardinia.",
       de: "Eine helle, gemütliche Wohnung mitten in Pirri, wenige Minuten vom Zentrum Cagliaris entfernt. Ideal, um die Stadt und die Strände Südsardiniens zu erkunden."
     },
+    /* Indirizzo dell'appartamento.
+       È il punto di partenza di TUTTI i percorsi della guida (spiagge,
+       ristoranti, "dove siamo"): si cambia qui e cambia ovunque.
+
+       ⚠️  Questo file è pubblico, come tutto il repository. Scrivere qui
+       l'indirizzo significa renderlo leggibile a chiunque, non solo agli
+       ospiti. Se non lo vuoi pubblico, mettilo a null: la guida torna a
+       mostrare i luoghi senza percorso, senza rompersi. */
+    address: "Via Bellavista 14, Pirri, Cagliari",
+
+    /* DA VERIFICARE: queste coordinate non sono state controllate. Apri
+       https://www.google.com/maps?q=39.2238,9.1217 e guarda dove cade il
+       segnaposto: se non è Via Bellavista 14, correggile (tasto destro
+       sul punto giusto in Google Maps → il primo valore in cima al menu). */
     coordinates: { lat: 39.2238, lng: 9.1217 },
-    mapEmbed: "https://www.google.com/maps?q=39.2238,9.1217&output=embed",
+
+    /* Mappa incorporata nella home. Segue l'indirizzo qui sopra, non più
+       le coordinate: finché quelle non sono verificate, l'indirizzo è il
+       dato più affidabile dei due. */
+    mapEmbed: "https://www.google.com/maps?q=Via%20Bellavista%2014%2C%20Pirri%2C%20Cagliari&output=embed",
     checkin: "15:00",
     checkout: "11:00",
     services: [
